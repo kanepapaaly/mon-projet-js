@@ -1,90 +1,5 @@
 
-
-/* const motApp = "Bonjour";
-let motUser = prompt("Entrer le mot : " + motApp);
-
-if(motApp === motUser) {
-    console.log("Bravo !");
-} else {
-    console.log("Vous avez fait une erreur de frappe.")
-} */
-
-/* const motApp = "Bonjour";
-let motUser = prompt("Entrer le mot : " + motApp);
-
-switch(motUser) {
-    case motApp:
-        console.log("Bravo !");
-        break;
-    case "Gredin":
-        console.log("Soyez correct !");
-        break;
-    case "Vilain":
-        console.log("Soyez gentil !");
-        break;
-    default:
-        console.log("Vous avez fait une erreur de frappe.");
-} */
-
-
-/* const listeMots = ["Papa", "Aly", "Kane"]
-let score = 0
-
-let motUser = prompt("Entrer le mot : " + listeMots[0])
-
-if(motUser === listeMots[0]) {
-    score++
-    //console.log("Score : " + score)
-}
-
-motUser = prompt("Entrer le mot : " + listeMots[1])
-if(motUser === listeMots[1]) {
-    score++
-} 
-        
-motUser = prompt("Entrer le mot : " + listeMots[2])
-if(motUser === listeMots[2]) {
-    score++
-}
-    
-console.log("Score : " + score)
- */
-
-
-
-
-/* let score = 0
-let motUser, motApp;
-
-enterUser = prompt("Voulez-vous la liste des mots ou phrases ? ")
-
-while(enterUser !== "mots" && enterUser !== "phrases") {
-    enterUser = prompt("Voulez-vous la liste des mots ou phrases ? ")
-}
-
-
-if(enterUser === "mots") {
-    for(let i = 0; i < listeMots.length; i++) {
-        motApp = listeMots[i]
-        motUser = prompt("Entrer le mot : " + motApp)
-        if(motUser === motApp) {
-            score++
-        }
-    }
-} else {
-    for(let i = 0; i < listePhrases.length; i++) {
-        motApp = listePhrases[i]
-        motUser = prompt("Entrer le mot : " + motApp)
-        if(motUser === motApp) {
-            score++
-        }
-    }
-}
-
-console.log("score : " + score + "/3") */
-
-
-/* // fonction qui affiche le score
+// fonction qui affiche le score
 function afficherResultat(score, nbMotsProposes) {
     console.log("Le score est : " + score + " sur " + nbMotsProposes)
 }
@@ -114,6 +29,7 @@ function lancerBoucleDeJeu(listePropositions) {
     return score
 }
 
+// fonction pour lancer le jeu (à appeler dans main.js)
 function lancerJeu() {
 
     let choix = choisirPhrasesOuMots()
@@ -130,19 +46,4 @@ function lancerJeu() {
 
     afficherResultat(score, nbMotsProposes)
 
-} */
-
-let baliseZoneProposition = document.getElementById("zoneProposition")
-console.log(baliseZoneProposition)
-
-//let baliseZonePropositionSpan = document.querySelector("#zoneProposition span")
-let baliseZonePropositionSpan = document.querySelector(".zoneProposition span")
-console.log(baliseZonePropositionSpan)
-
-let listeInputRadio = document.querySelectorAll(".zoneChoix input")
-console.log(listeInputRadio)
-
-// récuperer les éléments en détails
-for(let i = 0; i < listeInputRadio.length; i++) {
-    console.log(listeInputRadio[i])
 }
