@@ -1,8 +1,14 @@
 
 // fonction qui affiche le score
 function afficherResultat(score, nbMotsProposes) {
-    console.log("Le score est : " + score + " sur " + nbMotsProposes)
+    //console.log("Le score est : " + score + " sur " + nbMotsProposes)
+    // affichage dynamique
+    let spanScore = document.querySelector(".zoneScore span")
+    let affichageScore = `${score} / ${nbMotsProposes}`
+
+    spanScore.innerHTML = affichageScore
 }
+
 
 // choix de mots ou phrases à taper 
 function choisirPhrasesOuMots() {
