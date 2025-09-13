@@ -1,7 +1,6 @@
 
 // fonction qui affiche le score
 function afficherResultat(score, nbMotsProposes) {
-    //console.log("Le score est : " + score + " sur " + nbMotsProposes)
     // affichage dynamique
     let spanScore = document.querySelector(".zoneScore span")
     let affichageScore = `${score} / ${nbMotsProposes}`
@@ -9,47 +8,39 @@ function afficherResultat(score, nbMotsProposes) {
     spanScore.innerHTML = affichageScore
 }
 
-
-// choix de mots ou phrases à taper 
-function choisirPhrasesOuMots() {
-    let choix = prompt("Voulez-vous la liste des mots ou phrases ? ")
-    while(choix !== "mots" && choix !== "phrases") {
-        choisirPhrasesOuMots = prompt("Voulez-vous la liste des mots ou phrases ? ")
-    }
-    return choix
-}
-
-
-// fonction pour lancer la boucle de jeu
-function lancerBoucleDeJeu(listePropositions) {
-    let score = 0
-    let motUser, motApp;
-    for(let i = 0; i < listePropositions.length; i++) {
-        motApp = listePropositions[i]
-        motUser = prompt("Entrer le mot/phrase : " + motApp)
-
-        if(motUser === motApp) {
-            score++
-        }
-    }
-    return score
+// fonction pour afficher la proposition de mots ou phrases 
+function afficherProposition(proposition) {
+    let inputEcriture = document.querySelector(".zoneProposition")
+    inputEcriture.innerText = proposition
 }
 
 // fonction pour lancer le jeu (à appeler dans main.js)
 function lancerJeu() {
 
-    let choix = choisirPhrasesOuMots()
     let score = 0
-    let nbMotsProposes = 0
+    let i = 0
 
-    if(choix === "mots") {
-        nbMotsProposes = listeMots.length
-        score = lancerBoucleDeJeu(listeMots)
-    } else {
-        nbMotsProposes = listePhrases.length
-        score = lancerBoucleDeJeu(listePhrases)
-    }
+    let monButton = document.getElementById("validerMot")
+    let monSaisi = document.getElementById("inputEcriture")
+    afficherProposition(listeMots[i])
+    monButton.addEventListener("click", () => {
+        console.log(monSaisi.value)
+        
+        if(monSaisi.value === listeMots[i]) {
+            score++
+        }
 
-    afficherResultat(score, nbMotsProposes)
+        i++
+        afficherResultat(score, i)
+        monSaisi.value = ''
+        if(listeMots[i] === undefined) {
+            afficherProposition("le Jeu est fini !")
+            monButton.disabled = true
+        } else {
+            afficherProposition(listeMots[i])
+        }
+    })
+
+    afficherResultat(score, i)
 
 }
