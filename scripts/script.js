@@ -16,27 +16,57 @@ function afficherProposition(proposition) {
 
 // cette fonction costruit et affiche l'email
 function afficherEmail(nom, email, score) {
-    let mailto = `mailto:${email}?subject=Partage du score AzerType&body=Salut, je suis ${nom} et je viens de réaliser le score ${score} sur le site Azertype`
+    let mailto = `mailto:${email}?subject=Partage du score AzerType&body=Salut, je suis ${nom} et je viens de réaliser le score ${score} sur le site Azertype.`
     location.href = mailto
 }
 
 // cette fonction permet de valider un nom (dans le champs de saisi)
 function validerNom(nom) {
     if(nom.length < 2) {
-        return false
+        throw new Error("Nom trop court !")
     }
-    return true
 }
 
 // cette fonction permet de valider un nom (dans le champs de saisi)
 function validerEmail(email) {
     let regexEmail = new RegExp("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+\\.[a-zA-Z0-9-_.]+")
-    if(regexEmail.test(email)) {
-        return true
+    if(!regexEmail.test(email)) {
+        throw new Error("Email invalide !")
     }
-    return false
 }
 
+// affichage de message d'erreur
+function afficherMessageErreur(message) {
+    let spanErreurMessage = document.getElementById("erreurMessage")
+
+    if(!spanErreurMessage) {
+        let popup = document.querySelector(".popup")
+        spanErreurMessage = document.createElement("span")
+        spanErreurMessage.id = "erreurMessage"
+
+        popup.append(spanErreurMessage)
+    } 
+
+    spanErreurMessage.innerText = message
+}
+
+// pour la gestion du formulaire
+function gererFormulaire(scoreEmail) {
+
+    try {
+        let nomForm = document.getElementById("nom").value
+        validerNom(nomForm)
+        let emailForm = document.getElementById("email").value
+        validerEmail(emailForm)
+        
+        afficherMessageErreur("")
+        afficherEmail(nomForm, emailForm, scoreEmail)
+
+    } catch (error) {
+         // gestion d'erreur
+         afficherMessageErreur(error.message)
+    }
+}
 
 // fonction pour lancer le jeu (à appeler dans main.js)
 function lancerJeu() {
@@ -88,19 +118,9 @@ function lancerJeu() {
     form.addEventListener("submit", (event) => {
         // empêcher le comportement par défaut de submit (rechargement automatique de la page)
         event.preventDefault()
-
-        let nomForm = document.getElementById("nom").value
-        let emailForm = document.getElementById("email").value
-
-        if(validerNom(nomForm) && validerEmail(emailForm)) {
-            let scoreEmail = `${score} / ${i}`
-        afficherEmail(nomForm, emailForm, scoreEmail)
-        } else {
-            console.log("Erreur de saisi...")
-        }
-        
+        let scoreEmail = `${score} / ${i}`
+        gererFormulaire(scoreEmail)
     })
 
     afficherResultat(score, i)
-
 }
