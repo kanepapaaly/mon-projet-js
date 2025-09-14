@@ -20,6 +20,22 @@ function afficherEmail(nom, email, score) {
     location.href = mailto
 }
 
+// cette fonction permet de valider un nom (dans le champs de saisi)
+function validerNom(nom) {
+    if(nom.length < 2) {
+        return false
+    }
+    return true
+}
+
+// cette fonction permet de valider un nom (dans le champs de saisi)
+function validerEmail(email) {
+    let regexEmail = new RegExp("[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+\\.[a-zA-Z0-9-_.]+")
+    if(regexEmail.test(email)) {
+        return true
+    }
+    return false
+}
 
 
 // fonction pour lancer le jeu (à appeler dans main.js)
@@ -70,14 +86,19 @@ function lancerJeu() {
 
     let form = document.querySelector("form")
     form.addEventListener("submit", (event) => {
+        // empêcher le comportement par défaut de submit (rechargement automatique de la page)
         event.preventDefault()
 
         let nomForm = document.getElementById("nom").value
         let emailForm = document.getElementById("email").value
 
-        let scoreEmail = `${score} / ${i}`
-
+        if(validerNom(nomForm) && validerEmail(emailForm)) {
+            let scoreEmail = `${score} / ${i}`
         afficherEmail(nomForm, emailForm, scoreEmail)
+        } else {
+            console.log("Erreur de saisi...")
+        }
+        
     })
 
     afficherResultat(score, i)
